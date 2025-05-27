@@ -1,12 +1,12 @@
 <?php
-// ----- Configuration de la base de données -----
+
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'todolist');
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
 
-// Connexion
+
 try {
     $pdo = new PDO(
         'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME,
@@ -18,7 +18,7 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// ----- Traitement des formulaires -----
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? null;
     $id = $_POST['id'] ?? null;
@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$id]);
     }
 
-    // Redirection après action pour éviter le re-envoi du formulaire
+    
     header("Location: projet.php");
     exit;
 }
 
-// ----- Récupération des tâches -----
+
 $stmt = $pdo->query("SELECT * FROM todo ORDER BY created_at DESC");
 $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -53,14 +53,14 @@ $taches = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<!-- Navbar -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Ma Todo App</a>
     </div>
 </nav>
 
-<!-- Contenu -->
+
 <div class="container mt-5">
     <h2>Ajouter une nouvelle tâche</h2>
     <form method="POST" class="mb-4">
